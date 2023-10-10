@@ -1,6 +1,7 @@
 package services
 
 import (
+	"context"
 	"github.com/bangpenn/ddd-go/aggregate"
 	"github.com/bangpenn/ddd-go/domain/customer"
 	"github.com/bangpenn/ddd-go/domain/customer/memory"
@@ -65,6 +66,17 @@ func WithMemoryProductRepository(products []aggregate.Product) OrderConfiguratio
 func WithMemoryCustomerRepository() OrderConfiguration {
 	cr := memory.New()
 	return WithCustomerRepository(cr)
+
+}
+func WithMongoCustomerRepository(ctx context.Context, connStr string) OrderConfiguration {
+	return func(os *OrderService) error {
+		cr, err := mongo.New(ctx, connStr)
+		if err != nil {
+			return err
+		}
+		os.customers = cr
+		return nil
+	}
 
 }
 
