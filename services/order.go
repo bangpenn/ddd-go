@@ -68,11 +68,11 @@ func WithMemoryCustomerRepository() OrderConfiguration {
 
 }
 
-func (o *OrderService) CreateOrder(customerID uuid.UUID, productsIDs []uuid.UUID) error {
+func (o *OrderService) CreateOrder(customerID uuid.UUID, productsIDs []uuid.UUID) (float64, error) {
 	// Fetch the Customer
 	c, err := o.customers.Get(customerID)
 	if err != nil {
-		return err
+		return 0, err
 	}
 
 	// Get each Product, Ouchie no productrepository
@@ -84,12 +84,12 @@ func (o *OrderService) CreateOrder(customerID uuid.UUID, productsIDs []uuid.UUID
 		p, err := o.products.GetByID(id)
 
 		if err != nil {
-			return err
+			return 0, err
 		}
 
 		products = append(products, p)
 		total += p.GetPrice()
 	}
 	log.Printf("Customer: %s has ordered %d products", c.GetID(), len(products))
-	return nil
+	return total, nil
 }
