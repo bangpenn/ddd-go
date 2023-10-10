@@ -33,7 +33,7 @@ func TestOrder_NewOrderSeriv(t *testing.T) {
 	products := init_products(t)
 
 	os, err := NewOrderService(
-		WithCustomerRepository(),
+		WithMemoryCustomerRepository(),
 		WithMemoryProductRepository(products),
 	)
 

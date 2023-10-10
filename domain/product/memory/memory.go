@@ -1,7 +1,6 @@
 package memory
 
 import (
-	// "errors"
 	"github.com/bangpenn/ddd-go/aggregate"
 	"github.com/bangpenn/ddd-go/domain/product"
 	"github.com/google/uuid"

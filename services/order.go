@@ -1,7 +1,6 @@
 package services
 
 import (
-	"errors"
 	"github.com/bangpenn/ddd-go/aggregate"
 	"github.com/bangpenn/ddd-go/domain/customer"
 	"github.com/bangpenn/ddd-go/domain/customer/memory"
@@ -52,8 +51,8 @@ func WithMemoryProductRepository(products []aggregate.Product) OrderConfiguratio
 	return func(os *OrderService) error {
 		pr := prodmem.New()
 
-		for _, p := range products{
-			if err := pr.Add(p); err i= nil {
+		for _, p := range products {
+			if err := pr.Add(p); err != nil {
 				return err
 			}
 		}
@@ -81,7 +80,7 @@ func (o *OrderService) CreateOrder(customerID uuid.UUID, productsIDs []uuid.UUID
 	var products []aggregate.Product
 	var total float64
 
-	for _, id := range productsIDs{
+	for _, id := range productsIDs {
 		p, err := o.products.GetByID(id)
 
 		if err != nil {
