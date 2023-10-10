@@ -1,9 +1,10 @@
 package memory
 
 import (
+	"errors"
 	"github.com/bangpenn/ddd-go/aggregate"
-	"github.com/google/uuid"
 	"github.com/bangpenn/ddd-go/domain/customer"
+	"github.com/google/uuid"
 	"testing"
 )
 
@@ -29,17 +30,16 @@ func TestMemory_GetCustom(t *testing.T) {
 
 	testCases := []testCase{
 		{
-			name: "no customer by id",
-			id: uuid.MustParse("f47ac10b-58cc-0372-8567-0e02b2c3d479"),
+			name:         "no customer by id",
+			id:           uuid.MustParse("f47ac10b-58cc-0372-8567-0e02b2c3d479"),
 			exepectedErr: customer.ErrCustomerNotFound,
 		}, {
-			name: "customer by id",
-			id: id
+			name:         "customer by id",
+			id:           id,
 			exepectedErr: nil,
-
-		}
+		},
 	}
-	for _, tc := range testCase{
+	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			_, err := repo.Get(tc.id)
 

@@ -2,8 +2,8 @@ package customer
 
 import (
 	"errors"
+	"github.com/bangpenn/ddd-go/aggregate"
 	"github.com/google/uuid"
-	"github.con/bangpenn/ddd-go/aggregate"
 )
 
 var (
